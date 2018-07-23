@@ -14,25 +14,28 @@ class App extends Component {
   }
 
   componentWillMount() {
-    let friends = [];
+
     firestore.collection("friends").onSnapshot(snapshot => {
-   
+      let friends = [];
       snapshot.forEach(doc => {
         const friend = doc.data();
         friend.id = doc.id;
         friends.push(friend);
       });
-  
+      this.setState({ friends:friends });
     });
-    this.setState({ friends:friends });
+
   }
 
   render() {
-
     return (
       <div className="App">
-          {
-            console.log(this.state.friends)
+         {
+            this.state.friends.map((friend) => {
+              return (
+               <p key={friend.id}>{friend.nickname}</p>
+              )
+            })
           }
       </div>
     );
