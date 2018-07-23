@@ -22,3 +22,4 @@ yarn-error.log*
 
 #config
 /src/config.js
+/src/firestore.js

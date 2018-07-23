@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-
+import firestore from "./firestore";
 import './App.css';
 
-import firebase from 'firebase/app';
-import 'firebase/database';
-import { DB_CONFIG } from './config';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.app = firebase.initializeApp(DB_CONFIG);
-    this.database = this.app.database().ref('friends');
 
     this.state = {
       friends: [],
@@ -19,25 +14,26 @@ class App extends Component {
   }
 
   componentWillMount() {
+    let friends = [];
+    firestore.collection("friends").onSnapshot(snapshot => {
    
-    this.database.on('value', snapshot => {
-      this.setState({
-        friends: snapshot.val()
-        });
+      snapshot.forEach(doc => {
+        const friend = doc.data();
+        friend.id = doc.id;
+        friends.push(friend);
       });
+  
+    });
+    this.setState({ friends:friends });
   }
 
   render() {
-    const friends = this.state.friends;
 
     return (
       <div className="App">
-
-     {friends.map(item => (
-             <p key={item.id}>
-              {item.nickname}
-           </p>
-         ))}
+          {
+            console.log(this.state.friends)
+          }
       </div>
     );
   }
