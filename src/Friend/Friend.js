@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import './App.css';
-
-
-class App extends Component {
+class Friend extends Component {
   constructor(props) {
     super(props);
 
@@ -16,13 +13,11 @@ class App extends Component {
   }
 
   render() {
-    const friends = this.state.friends;
-
     return (
-      <div className="App">
+      <div>
       </div>
     );
   }
 }
 
-export default App;
+export default Friend;
