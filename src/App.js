@@ -38,28 +38,28 @@ class App extends Component {
 
   componentDidMount() {
     firestore.collection("friends").onSnapshot(snapshot => {
-      let friends = [];
+      let friendsData = [];
       snapshot.forEach(doc => {
         const friend = doc.data();
         friend.id = doc.id;
-        friends.push(friend);
+        friendsData.push(friend);
       });
 
-      let friends2 = friends.map(friend => {
-        let currentDate = new Date();
-        if (friend.lastDay.getDate() !== currentDate.getDate()) {
+      let friends = friendsData.map(friend => {
+        let lastDate = friend.lastDay.toDateString();
+        let currentDate = new Date().toDateString();
+        if (lastDate != currentDate) {
           return { ...friend, activeToday: false };
         } else {
           return { ...friend, activeToday: true };
         }
       });
 
-      this.setState({ friends: friends2 });
+      this.setState({ friends: friends });
     });
   }
 
   render() {
-    console.log(this.state.friends);
     return (
       <div className="wrap">
         {this.state.friends.map(friend => {
