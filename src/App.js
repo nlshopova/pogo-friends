@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Friend from "./components/Friend";
+import FriendsList from "./components/FriendsList";
 import firestore from "./firestore";
 import "./App.css";
 
@@ -13,29 +13,6 @@ class App extends Component {
       friends: []
     };
   }
-  async markActive(id) {
-    let currentDate = new Date();
-    let currentLevel = 0;
-    await firestore
-      .collection("friends")
-      .doc(id)
-      .get()
-      .then(function(doc) {
-        currentLevel = doc.data().level;
-      });
-    currentLevel += 1;
-    await firestore
-      .collection("friends")
-      .doc(id)
-      .set(
-        {
-          lastDay: currentDate,
-          level: currentLevel
-        },
-        { merge: true }
-      );
-  }
-
   componentDidMount() {
     firestore.collection("friends").onSnapshot(snapshot => {
       let friendsData = [];
@@ -62,9 +39,10 @@ class App extends Component {
   render() {
     return (
       <div className="wrap">
-        {this.state.friends.map(friend => {
-          return <Friend key={friend.id} friend={friend} />;
-        })}
+        <header>
+          <h1>My PokemonGo friends</h1>
+        </header>
+        <FriendsList friends={this.state.friends} />
       </div>
     );
   }

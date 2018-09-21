@@ -34,8 +34,9 @@ class Friend extends Component {
 
   render() {
     let friend = this.props.friend;
+    let activeClass = friend.activeToday ? "active" : "";
     return (
-      <Paper className="fr-li" elevation={1}>
+      <Paper className={"fr-li " + activeClass} elevation={1}>
         <span className="nick">{friend.nickname}</span>
         <span className="level"> {friend.level}</span>
         <Button
