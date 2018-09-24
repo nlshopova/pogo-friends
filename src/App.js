@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import FriendsList from "./components/FriendsList";
+import FriendsSearch from "./components/FriendsSearch";
 import firestore from "./firestore";
 import "./App.css";
 
@@ -10,8 +9,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      friends: []
+      friends: [],
+      searchVal: ""
     };
+    this.onSearch = this.onSearch.bind(this);
   }
   componentDidMount() {
     firestore.collection("friends").onSnapshot(snapshot => {
@@ -35,6 +36,11 @@ class App extends Component {
       this.setState({ friends: friends });
     });
   }
+  onSearch(val) {
+    this.setState({
+      searchVal: val
+    });
+  }
 
   render() {
     return (
@@ -42,7 +48,13 @@ class App extends Component {
         <header>
           <h1>My PokemonGo friends</h1>
         </header>
-        <FriendsList friends={this.state.friends} />
+        <div className="actions-container">
+          <FriendsSearch onSearch={this.onSearch} />
+        </div>
+        <FriendsList
+          friends={this.state.friends}
+          filterVal={this.state.searchVal}
+        />
       </div>
     );
   }
