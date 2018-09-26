@@ -14,6 +14,7 @@ class App extends Component {
       showInactiveOnly: false
     };
     this.onSearch = this.onSearch.bind(this);
+    this.onHideActiveCheck = this.onHideActiveCheck.bind(this);
   }
   componentDidMount() {
     firestore.collection("friends").onSnapshot(snapshot => {
@@ -42,6 +43,11 @@ class App extends Component {
       searchVal: val
     });
   }
+  onHideActiveCheck(showInactiveOnly) {
+    this.setState({
+      showInactiveOnly: showInactiveOnly
+    });
+  }
 
   render() {
     return (
@@ -49,15 +55,16 @@ class App extends Component {
         <header>
           <h1>My PokemonGo friends</h1>
         </header>
-        <div className="actions-container">
-          <FriendsActions
-            onSearch={this.onSearch}
-            filterVal={this.state.searchVal}
-          />
-        </div>
+        <FriendsActions
+          onSearch={this.onSearch}
+          filterVal={this.state.searchVal}
+          showInactiveOnly={this.state.showInactiveOnly}
+          onHideActiveCheck={this.onHideActiveCheck}
+        />
         <FriendsList
           friends={this.state.friends}
           filterVal={this.state.searchVal}
+          showInactiveOnly={this.state.showInactiveOnly}
         />
       </div>
     );

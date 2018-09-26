@@ -18,7 +18,6 @@ class FriendsSearch extends Component {
         className="friends-search"
         margin="normal"
         variant="outlined"
-        fullWidth
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

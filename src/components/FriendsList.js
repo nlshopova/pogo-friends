@@ -7,8 +7,8 @@ class FriendsList extends Component {
     super(props);
   }
 
-  filterFriends(query) {
-    return this.props.friends.filter(
+  filterFriends(query, arr) {
+    return arr.filter(
       el => el.nickname.toLowerCase().indexOf(query.toLowerCase()) > -1
     );
   }
@@ -21,8 +21,13 @@ class FriendsList extends Component {
     // let friends2 = this.props.friends.sort(
     //   (a, b) => a.level - b.level || a.nickname.localeCompare(b.nickname)
     // );
-    let friends2 = this.filterFriends(this.props.filterVal);
-    friends2.sort((a, b) => a.nickname.localeCompare(b.nickname));
+    let friends = this.props.friends;
+    friends.sort((a, b) => a.nickname.localeCompare(b.nickname));
+    if (this.props.showInactiveOnly) {
+      friends = friends.filter(a => a.activeToday != true);
+    }
+    let friends2 = this.filterFriends(this.props.filterVal, friends);
+
     return (
       <div className="friends-container">
         <div className="friends-list">

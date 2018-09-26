@@ -41,3 +41,13 @@ header {
 .fr-li button:disabled {
   background-color: rgba(#ced3dc, 0.3);
 }
+.actions-container .friends-search {
+  margin-right: 40px;
+}
+.actions-container .active-checkbox {
+  margin-left: 0;
+}
+.actions-container .active-checkbox .MuiFormControlLabel-label-31 {
+  margin-left: -10px;
+  font-family: "Mitr", sans-serif;
+}
