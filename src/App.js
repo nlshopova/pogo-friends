@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FriendsList from "./components/FriendsList";
-import FriendsSearch from "./components/FriendsSearch";
+import FriendsActions from "./components/FriendsActions";
 import firestore from "./firestore";
 import "./App.css";
 
@@ -10,7 +10,8 @@ class App extends Component {
 
     this.state = {
       friends: [],
-      searchVal: ""
+      searchVal: "",
+      showInactiveOnly: false
     };
     this.onSearch = this.onSearch.bind(this);
   }
@@ -49,7 +50,10 @@ class App extends Component {
           <h1>My PokemonGo friends</h1>
         </header>
         <div className="actions-container">
-          <FriendsSearch onSearch={this.onSearch} />
+          <FriendsActions
+            onSearch={this.onSearch}
+            filterVal={this.state.searchVal}
+          />
         </div>
         <FriendsList
           friends={this.state.friends}

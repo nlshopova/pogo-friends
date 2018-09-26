@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
-import firestore from "../firestore";
+
 import Friend from "./Friend";
 
 class FriendsList extends Component {
@@ -26,7 +22,7 @@ class FriendsList extends Component {
     //   (a, b) => a.level - b.level || a.nickname.localeCompare(b.nickname)
     // );
     let friends2 = this.filterFriends(this.props.filterVal);
-
+    friends2.sort((a, b) => a.nickname.localeCompare(b.nickname));
     return (
       <div className="friends-container">
         <div className="friends-list">

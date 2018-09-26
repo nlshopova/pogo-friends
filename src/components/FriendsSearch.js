@@ -6,14 +6,10 @@ class FriendsSearch extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      searchWord: ""
-    };
     this.setSearchWord = this.setSearchWord.bind(this);
   }
   setSearchWord(event) {
     this.props.onSearch(event.target.value);
-    this.setState({ searchWord: event.target.value });
   }
   render() {
     return (
@@ -30,7 +26,7 @@ class FriendsSearch extends Component {
             </InputAdornment>
           )
         }}
-        value={this.state.searchWord}
+        value={this.props.filterVal}
         onChange={this.setSearchWord}
       />
     );
